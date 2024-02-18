@@ -3,17 +3,22 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AccountService } from '../_services/account.service';
 import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [ReactiveFormsModule, BsDropdownModule, CommonModule],
+  imports: [ReactiveFormsModule, BsDropdownModule,
+    CommonModule, RouterLink, RouterLinkActive,],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })
 export class NavComponent implements OnInit {
-  constructor(public accountServices: AccountService) { }
+  constructor(public accountServices: AccountService,
+    private router: Router,
+    private toastr: ToastrService) { }
 
   ngform = new FormGroup({
     userName: new FormControl(''),
@@ -21,14 +26,13 @@ export class NavComponent implements OnInit {
   });
   public login() {
     this.accountServices.login(this.ngform.value).subscribe({
-      next: response => {
-        console.log(response)
-      },
-      error: error => console.log(error)
+      next: _ => this.router.navigateByUrl('/members'),
+      error: error => this.toastr.error(error.error)
     })
   }
   logout() {
     this.accountServices.logout();
+    this.router.navigateByUrl('/')
   }
   ngOnInit(): void {
   }

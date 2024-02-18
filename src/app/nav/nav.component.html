@@ -2,22 +2,27 @@
     <div class="container">
         <a class="navbar-brand" href="#">dotnet app</a>
 
-        <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="accountServices.currentUser$ | async">
-            <li class="nav-item">
-                <a class="nav-link" href="#">match</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">lists</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link">msgs</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link">edit profile</a>
-            </li>
-            <li class="nav-item" (click)="logout()">
-                <a class="nav-link">logout</a>
-            </li>
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <ng-container *ngIf="(accountServices.currentUser$ | async) as user">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/members" routerLinkActive="active">match</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/lists" routerLinkActive="active">lists</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/messages" routerLinkActive="active">msgs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">edit profile</a>
+                </li>
+                <li class="nav-item" (click)="logout()">
+                    <a class="nav-link">logout</a>
+                </li>
+                <li class="nav-item">
+                    <p class="nav-link m-0">Welcome {{user.username | titlecase}}</p>
+                </li>
+            </ng-container>
         </ul>
         <form [formGroup]="ngform" class="d-flex" (ngSubmit)="login()" autocomplete="off"
             *ngIf="!(accountServices.currentUser$ | async)">
@@ -25,7 +30,7 @@
                 name="userName">
             <input formControlName="password" class=" form-control me-2" type="password" placeholder="password"
                 name="password ">
-            <button class="btn btn-outline-success" type="submit">Login</button>
+            <button class="btn btn-success" type="submit">Login</button>
         </form>
     </div>
 

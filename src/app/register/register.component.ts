@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from '../home/home.component';
 import { AccountService } from '../_services/account.service';
 import { error } from 'console';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -15,7 +16,8 @@ import { error } from 'console';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService,
+    private toastr: ToastrService) { }
 
 
   @Output() cancelRegister = new EventEmitter();
@@ -28,8 +30,11 @@ export class RegisterComponent implements OnInit {
 
   register() {
     this.accountService.register(this.ngform.value).subscribe({
-      next: () => { this.cancel() },
-      error: error => console.log(error)
+      next: () => this.cancel(),
+      error: error => {
+        this.toastr.error(error.error)
+
+      }
     })
   }
   cancel() {
