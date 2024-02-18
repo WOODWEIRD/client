@@ -27,7 +27,6 @@ export class NavComponent implements OnInit {
   public login() {
     this.accountServices.login(this.ngform.value).subscribe({
       next: _ => this.router.navigateByUrl('/members'),
-      error: error => this.toastr.error(error.error)
     })
   }
   logout() {

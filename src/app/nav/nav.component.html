@@ -23,6 +23,9 @@
                     <p class="nav-link m-0">Welcome {{user.username | titlecase}}</p>
                 </li>
             </ng-container>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/errors" routerLinkActive="active">error</a>
+            </li>
         </ul>
         <form [formGroup]="ngform" class="d-flex" (ngSubmit)="login()" autocomplete="off"
             *ngIf="!(accountServices.currentUser$ | async)">
