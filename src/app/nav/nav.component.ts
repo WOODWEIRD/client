@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AccountService } from '../_services/account.service';
 import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -15,10 +14,9 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })
-export class NavComponent implements OnInit {
+export class NavComponent {
   constructor(public accountServices: AccountService,
-    private router: Router,
-    private toastr: ToastrService) { }
+    private router: Router) { }
 
   ngform = new FormGroup({
     userName: new FormControl(''),
@@ -33,7 +31,4 @@ export class NavComponent implements OnInit {
     this.accountServices.logout();
     this.router.navigateByUrl('/')
   }
-  ngOnInit(): void {
-  }
-
 }

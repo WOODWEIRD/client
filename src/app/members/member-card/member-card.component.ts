@@ -14,6 +14,5 @@ import { RouterLink } from '@angular/router';
 })
 export class MemberCardComponent {
   @Input() member: Member | undefined;
-
   constructor() { }
 }

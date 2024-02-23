@@ -7,6 +7,7 @@ import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-br
 import { provideToastr } from 'ngx-toastr';
 import { errorrInterceptor } from './_interceptor/errorr.interceptor';
 import { jwtInterceptor } from './_interceptor/jwt.interceptor';
+import { loadingInterceptor } from './_interceptor/loading.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes),

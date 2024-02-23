@@ -1,0 +1,74 @@
+<div class="container m-0 p-0">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+
+    <div class="row" *ngIf="member">
+        <div class="col-4">
+            <h1>Your Profile</h1>
+        </div>
+        <div class="col-8">
+            <div class="alert alert-info pb-0" *ngIf="ngform.dirty">
+                <p><strong>Information:</strong>you have made changes, any unsaved changes will lost</p>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}"
+                    class="card-img-top img-thumbnail">
+                <div class="card-body">
+                    <div>
+                        <strong>Location:</strong>
+                        <p>{{member.city}}, {{member.country}}</p>
+                    </div>
+                    <div>
+                        <strong>Age:</strong>
+                        <p>{{member.age}}</p>
+                    </div>
+                    <div>
+                        <strong>Last Active:</strong>
+                        <p>{{member.lastActive}}</p>
+                    </div>
+                    <div>
+                        <strong>Member Since:</strong>
+                        <p>{{member.created}}</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button form="editForm" [disabled]="!ngform.dirty" class="btn btn-success col-12">Save
+                        Changes</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <tabset class="member-tabset">
+                <tab heading="About {{member.knownAs}}">
+                    <form [formGroup]="ngform" id="editForm" (ngSubmit)="updateMember()" autocomplete="off">
+                        <h4 class="mt-2">Descreption</h4>
+                        <textarea class="form-control" rows="6" formControlName="introduction" name="introduction"
+                            placeholder="{{member.introduction}}"></textarea>
+
+                        <h4 class="mt-2">looking for</h4>
+                        <textarea class="form-control" rows="6" formControlName="lookingFor"
+                            name="lookingFor"></textarea>
+
+                        <h4 class="mt-2">Interests</h4>
+                        <textarea class="form-control" rows="6" formControlName="interests" name="interests"
+                            placeholder="{{member.interests}}"></textarea>
+                        <h4 class="mt-2">Location Details</h4>
+                        <div class="d-flex flex-row align-items-center">
+                            <label for="city">City: </label>
+                            <input type="text" formControlName="city" name="city" class="form-control mx-2"
+                                placeholder="{{member.city}}">
+
+                            <label for="country">Country: </label>
+                            <input type="text" formControlName="country" name="country" class="form-control mx-2"
+                                placeholder="{{member.country}}">
+                        </div>
+                    </form>
+                </tab>
+                <tab heading="Edit Photos">
+                    <p>photo edit here</p>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+</div>
