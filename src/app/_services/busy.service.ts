@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { AppComponent } from '../app.component';
 import { delay } from 'rxjs';
 
 @Injectable({
@@ -22,5 +21,4 @@ export class BusyService {
     }
     return true;
   }
-
 }

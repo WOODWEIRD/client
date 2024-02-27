@@ -24,7 +24,10 @@ export class NavComponent {
   });
   public login() {
     this.accountServices.login(this.ngform.value).subscribe({
-      next: _ => this.router.navigateByUrl('/members'),
+      next: _ => {
+        this.router.navigateByUrl('/members');
+    
+      },
     })
   }
   logout() {

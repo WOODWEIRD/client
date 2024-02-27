@@ -3,13 +3,14 @@ import { Member } from '../../_models/Member';
 import { User } from '../../_models/User';
 import { AccountService } from '../../_services/account.service';
 import { MembersService } from '../../_services/members.service';
-import { delay, take } from 'rxjs';
+import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { BusyService } from '../../_services/busy.service';
 import { NgxLoadingModule } from 'ngx-loading';
+import { PhotoEditorComponent } from '../photo-editor/photo-editor.component';
 
 
 
@@ -19,7 +20,8 @@ import { NgxLoadingModule } from 'ngx-loading';
   imports: [CommonModule,
     TabsModule,
     ReactiveFormsModule,
-    NgxLoadingModule
+    NgxLoadingModule,
+    PhotoEditorComponent
   ],
   templateUrl: './member-edit.component.html',
   styleUrl: './member-edit.component.css'
@@ -45,9 +47,6 @@ export class MemberEditComponent implements OnInit {
 
       next: async user => {
         this.user = user;
-        this.loading = this.busyService.busy();
-        await this.sleepwork();
-        this.loading = this.busyService.idle();
       }
 
     })
@@ -99,7 +98,6 @@ export class MemberEditComponent implements OnInit {
     this.memberService.getMemeber(this.user.username).subscribe({
       next: member => {
         this.member = member;
-        console.log(this.member);
         this.ngform.setValue({
           introduction: member.introduction,
           lookingFor: member.lookingFor,

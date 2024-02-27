@@ -16,8 +16,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private accountService: AccountService,
-    private toastr: ToastrService) { }
+  constructor(
+    private accountService: AccountService,
+    private toastr: ToastrService
+  ) { }
 
 
   @Output() cancelRegister = new EventEmitter();
