@@ -19,9 +19,9 @@
                 <li class="nav-item" (click)="logout()">
                     <a class="nav-link">logout</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item d-flex">
+                    <p class="nav-link ms-1 m-0">Welcome {{user.knownAs | titlecase}}</p>
                     <img src="{{user.photoUrl || './assets/user.png'}}" alt="userPhoto">
-                    <p class="nav-link ms-1 m-0">Welcome {{user.username | titlecase}}</p>
                 </li>
             </ng-container>
             <li class="nav-item">
