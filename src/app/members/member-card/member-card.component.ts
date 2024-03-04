@@ -3,6 +3,8 @@ import { MemberListComponent } from '../member-list/member-list.component';
 import { Member } from '../../_models/Member';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { MembersService } from '../../_services/members.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-member-card',
@@ -14,6 +16,12 @@ import { RouterLink } from '@angular/router';
 })
 export class MemberCardComponent {
   @Input() member: Member | undefined;
-  
-  constructor() { }
+
+  constructor(private memberService: MembersService, private toastr: ToastrService) { }
+
+  addLike(member: Member) {
+    this.memberService.addLike(member.userName).subscribe({
+      next: () => this.toastr.success('liked ' + member.knownAs)
+    })
+  }
 }

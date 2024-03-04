@@ -6,9 +6,6 @@ import { MemberCardComponent } from '../member-card/member-card.component';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { Pagination } from '../../_models/pagination';
 import { UserParams } from '../../_models/userParams';
-import { User } from '../../_models/User';
-import { AccountService } from '../../_services/account.service';
-import { take } from 'rxjs';
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
@@ -75,7 +72,7 @@ export class MemberListComponent implements OnInit {
     this.filterForm.reset({
       minAge: 18,
       maxAge: 99,
-      gender: "male"
+      gender: this.membersService.userParams?.gender
     })
   }
 

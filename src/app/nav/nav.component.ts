@@ -4,6 +4,7 @@ import { AccountService } from '../_services/account.service';
 import { CommonModule } from '@angular/common';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { MembersService } from '../_services/members.service';
 
 
 @Component({
@@ -15,7 +16,8 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './nav.component.css'
 })
 export class NavComponent {
-  constructor(public accountServices: AccountService,
+  constructor(
+    public accountServices: AccountService,
     private router: Router) { }
 
   ngform = new FormGroup({
@@ -25,8 +27,9 @@ export class NavComponent {
   public login() {
     this.accountServices.login(this.ngform.value).subscribe({
       next: _ => {
+
         this.router.navigateByUrl('/members');
-    
+
       },
     })
   }
