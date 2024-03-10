@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="#">dotnet app</a>
+<nav class="navbar navbar-expand navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand m-0 p-0" href="#">dotnet app</a>
 
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+    <div class=" m-0 p-0 container">
+        <ul class="navbar-nav mr-auto">
             <ng-container *ngIf="(accountServices.currentUser$ | async) as user">
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/members" routerLinkActive="active">match</a>
@@ -14,7 +14,11 @@
                     <a class="nav-link" routerLink="/messages" routerLinkActive="active">msgs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/member/edit" routerLinkActive="active">edit profile</a>
+                    <a class="nav-link" routerLink="/member/edit" routerLinkActive="active">edit</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" *appHasRole="['Admin','Mod']" routerLink="/admin"
+                        routerLinkActive="active">admin</a>
                 </li>
                 <li class="nav-item" (click)="logout()">
                     <a class="nav-link">logout</a>

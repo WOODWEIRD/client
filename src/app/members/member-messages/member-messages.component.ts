@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Message } from '../../_models/Message';
 import { CommonModule } from '@angular/common';
 import { MessageService } from '../../_services/message.service';
-import { FormBuilder, FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
+import {FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-member-messages',
@@ -21,7 +21,7 @@ export class MemberMessagesComponent implements OnInit {
   });
 
 
-  constructor(private messageService: MessageService, private fb: FormBuilder) { }
+  constructor(private messageService: MessageService) { }
   ngOnInit(): void { }
 
   sendMessage() {
