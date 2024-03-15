@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MessageService } from '../../_services/message.service';
 import { FormControl, FormGroup, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
@@ -6,6 +6,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { CustomRouteReuseStrategy } from '../../_services/customRouteReuseStrategy';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-member-messages',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule],

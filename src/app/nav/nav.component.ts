@@ -27,7 +27,8 @@ export class NavComponent {
     this.accountServices.login(this.ngform.value).subscribe({
       next: _ => {
         this.router.navigateByUrl('/members');
-      },
+        this.ngform.reset();
+      }
     })
   }
 
