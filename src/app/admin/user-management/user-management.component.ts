@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../_services/admin.service';
 import { User } from '../../_models/User';
 import { CommonModule } from '@angular/common';
-import { BsModalRef, BsModalService, ModalModule, ModalOptions } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 import { RolesModalComponent } from '../../modals/roles-modal/roles-modal.component';
 
 @Component({

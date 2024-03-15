@@ -1,11 +1,12 @@
 import { Component, Input, OnInit, input } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouteReuseStrategy, RouterOutlet } from '@angular/router';
 import { CommonModule, NgFor } from '@angular/common';
 import { NavComponent } from "./nav/nav.component";
 import { User } from './_models/User';
 import { AccountService } from './_services/account.service';
 import { HomeComponent } from './home/home.component';
 import { NgxLoadingModule } from 'ngx-loading';
+import { CustomRouteReuseStrategy } from './_services/customRouteReuseStrategy';
 
 
 @Component({
@@ -18,7 +19,8 @@ import { NgxLoadingModule } from 'ngx-loading';
     HomeComponent,
     NgxLoadingModule,
     CommonModule
-  ]
+  ],
+
 })
 
 export class AppComponent implements OnInit {

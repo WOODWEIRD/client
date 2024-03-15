@@ -1,12 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Member } from '../../_models/Member';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouteReuseStrategy } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TabDirective, TabsModule, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
 import { MemberMessagesComponent } from '../member-messages/member-messages.component';
 import { MessageService } from '../../_services/message.service';
 import { Message } from '../../_models/Message';
+import { PresenceService } from '../../_services/presence.service';
+import { AccountService } from '../../_services/account.service';
+import { User } from '../../_models/User';
+import { take } from 'rxjs';
+import { CustomRouteReuseStrategy } from '../../_services/customRouteReuseStrategy';
 
 
 @Component({
@@ -14,19 +19,31 @@ import { Message } from '../../_models/Message';
   standalone: true,
   imports: [CommonModule, TabsModule, GalleryModule, MemberMessagesComponent],
   templateUrl: './member-detail.component.html',
-  styleUrl: './member-detail.component.css'
+  styleUrl: './member-detail.component.css',
+  providers: [{ provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }]
 })
-export class MemberDetailComponent implements OnInit {
+export class MemberDetailComponent implements OnInit, OnDestroy {
   @ViewChild('memberTabs', { static: true }) memberTabs?: TabsetComponent;
   member: Member = {} as Member;
   images: GalleryItem[] = [];
   activeTab?: TabDirective;
   messages: Message[] = [];
+  user?: User;
 
   constructor(
     private route: ActivatedRoute,
-    private messageService: MessageService
-  ) { }
+    private messageService: MessageService,
+    public presenceService: PresenceService,
+    private accountService: AccountService,
+
+  ) {
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
+      next: user => { if (user) this.user = user }
+    })
+  }
+  ngOnDestroy(): void {
+    this.messageService.stopHubConnection();
+  }
 
   ngOnInit(): void {
     this.route.data.subscribe({
@@ -48,7 +65,10 @@ export class MemberDetailComponent implements OnInit {
   }
 
   onTabActivated(data: TabDirective) {
-    if (data.heading === 'Messages') this.loadMessageThread();
+    if (data.heading === 'Messages' && this.user) { this.messageService.createHubConnection(this.user, this.member.userName); }
+    else {
+      this.messageService.stopHubConnection();
+    }
   }
 
 
